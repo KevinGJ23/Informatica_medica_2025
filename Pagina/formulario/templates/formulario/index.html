@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Predicción de Codigo GRD</title>
+
+    <!-- Select2 -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <style>
+        body {
+            text-align: center;
+            font-family: sans-serif;
+            background-color: #f0f8ff;
+        }
+        select, input[type="text"] {
+            width: 300px;
+        }
+        .box {
+            margin: 20px auto;
+            padding: 15px;
+            border: 1px solid #ccc;
+            background-color: #ffffff;
+            width: 60%;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Formulario de Predicción (codigo GRD)</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {% for key, values in opciones.items %}
+            <label for="{{ key }}">{{ key }}:</label>
+
+            {% if key == "DXR_1" or key == "DXR_3" or key == "DX_EGRESO_AGRUPADO" %}
+                <input type="text" name="{{ key }}" value="{{ seleccionados.key }}" placeholder="Ej: I10" required>
+            {% else %}
+                <select class="select2" name="{{ key }}" required>
+                    {% for val in values %}
+                        <option value="{{ val }}"
+                            {% if seleccionados.key == val %}selected{% endif %}>
+                            {{ val }}
+                        </option>
+                    {% endfor %}
+                </select>
+            {% endif %}
+
+            <br><br>
+        {% endfor %}
+        <button type="submit">Predecir</button>
+    </form>
+
+    {% if resultado %}
+        <h2>Resultado: {{ resultado }}</h2>
+
+        <div class="box">
+            <h3>Valores ingresados:</h3>
+            <ul>
+                {% for k, v in seleccionados.items %}
+                    <li><strong>{{ k }}:</strong> {{ v }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2({
+                minimumResultsForSearch: 0,
+                width: 'resolve'
+            });
+        });
+    </script>
+</body>
+</html>
