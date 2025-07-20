@@ -26,10 +26,10 @@ El repositorio incluye los siguientes archivos y carpetas principales:
    Documento que contiene:
    - Requisitos del entorno y dependencias necesarias.
    - Pasos para la instalación y ejecución local de la página web.
-   - Información adicional sobre el modelo implementado.
+   - Información adicional sobre la implementacion de la página web con el modelo.
 
 ## Autores
 # Kevin Garcia --  1001123918
 # Juan Caguasango -- 1004232960
 # Juan toro --  1000579233
-# Vlaeria Giraldo -- 1007577551
+# Valeria Giraldo -- 1007577551
